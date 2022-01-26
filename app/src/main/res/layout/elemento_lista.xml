@@ -5,13 +5,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp"
-    android:id="@+id/cvTarefa">
+    android:id="@+id/cvNota">
 
-    <TextView
-        android:id="@+id/tvDescricaoTarefa"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tarefas"
-        android:textSize="20sp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTituloNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDescricaoNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvDataCriacaoNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data de criação"
+            android:textAlignment="textEnd"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

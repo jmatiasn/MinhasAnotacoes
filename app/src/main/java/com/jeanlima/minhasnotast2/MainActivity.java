@@ -1,5 +1,6 @@
 package com.jeanlima.minhasnotast2;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<Nota> mNotas = new ArrayList<Nota>();
 
-    Nota tarefaSelecionada = new Nota();
+    Nota notaSelecionada = new Nota();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapterMod.implementaAoClicarNoItem(new AdapterMod.AoClicarNoItem() {
             @Override
-            public void clicouNaTarefa(int pos) {
+            public void clicouNaNota(int pos) {
                 //Editar nota
 
                 Nota nota = new Nota();
@@ -76,25 +77,25 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void pressionouTarefa(int pos) {
+            public void pressionouNota(int pos) {
 
-                tarefaSelecionada = mNotas.get(pos);
+                notaSelecionada = mNotas.get(pos);
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
                 dialog.setTitle("Confirmar Exclusão");
 
-                dialog.setMessage("Deseja excluir a tarefa: "+tarefaSelecionada.getDescricao()+ " ?");
+                dialog.setMessage("Deseja excluir a nota: "+ notaSelecionada.getTitulo()+ " ?");
 
                 dialog.setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NotaDAO tarefaDAO = new NotaDAO(getApplicationContext());
-                        if(tarefaDAO.deletar(tarefaSelecionada)){
-                            Toast.makeText(getApplicationContext(), "Tarefa foi removida", Toast.LENGTH_SHORT).show();
+                        if(tarefaDAO.deletar(notaSelecionada)){
+                            Toast.makeText(getApplicationContext(), "Nota foi removida", Toast.LENGTH_SHORT).show();
                             carregarTarefas();
                         } else {
-                            Toast.makeText(getApplicationContext(), "rro ao deletar tarefa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Erro ao deletar nota", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

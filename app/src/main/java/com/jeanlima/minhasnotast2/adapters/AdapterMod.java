@@ -1,9 +1,11 @@
 package com.jeanlima.minhasnotast2.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -12,7 +14,9 @@ import com.jeanlima.minhasnotast2.R;
 
 import com.jeanlima.minhasnotast2.Modelo.Nota;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder> {
 
@@ -36,8 +40,11 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
     public void onBindViewHolder(@NonNull MinhaViewHolder holder, int position) {
 
         Nota nota = mNotas.get(position);
+        holder.tvTituloNota.setText(nota.getTitulo());
         holder.tvDescricaoNota.setText(nota.getDescricao());
 
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        holder.tvDataCriacaoNota.setText(dateFormat.format(nota.getDataCriacao()));
     }
 
     @Override
@@ -48,13 +55,17 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
     public class MinhaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         CardView cvNota;
+        TextView tvTituloNota;
         TextView tvDescricaoNota;
+        TextView tvDataCriacaoNota;
 
         public MinhaViewHolder(View itemView){
             super(itemView);
 
-            cvNota = itemView.findViewById(R.id.cvTarefa);
-            tvDescricaoNota = itemView.findViewById(R.id.tvDescricaoTarefa);
+            cvNota = itemView.findViewById(R.id.cvNota);
+            tvTituloNota = itemView.findViewById(R.id.tvTituloNota);
+            tvDescricaoNota = itemView.findViewById(R.id.tvDescricaoNota);
+            tvDataCriacaoNota = itemView.findViewById(R.id.tvDataCriacaoNota);
 
             cvNota.setOnClickListener(this);
             cvNota.setOnLongClickListener(this);
@@ -62,19 +73,19 @@ public class AdapterMod extends RecyclerView.Adapter<AdapterMod.MinhaViewHolder>
 
         @Override
         public void onClick(View v) {
-            listener.clicouNaTarefa(getLayoutPosition());
+            listener.clicouNaNota(getLayoutPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            listener.pressionouTarefa(getLayoutPosition());
+            listener.pressionouNota(getLayoutPosition());
             return true;
         }
     }
 
     public interface AoClicarNoItem{
-        public void clicouNaTarefa(int pos);
-        public void pressionouTarefa(int pos);
+        public void clicouNaNota(int pos);
+        public void pressionouNota(int pos);
     }
 
     public AoClicarNoItem listener;

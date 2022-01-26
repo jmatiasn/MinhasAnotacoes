@@ -66,8 +66,10 @@ public class NotaDAO {
             String descricao = c.getString(c.getColumnIndexOrThrow("descricao"));
             String dataCriacao = c.getString(c.getColumnIndexOrThrow("dataCriacao"));
 
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            //"Tue Jan 25 21:15:40 GMT-03:00 2022"
+            SimpleDateFormat formato = new SimpleDateFormat("E MMM dd HH:mm:ss 'GMT'Z yyyy");
             Date dataCriacaoFormatada = null;
+
             try {
                 dataCriacaoFormatada = formato.parse(dataCriacao);
             } catch (ParseException e) {
